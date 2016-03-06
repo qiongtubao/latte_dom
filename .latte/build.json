@@ -1,0 +1,25 @@
+{
+	"keys": {
+
+	},
+	"build": [
+		{
+			"command": "merger",
+			"type": "js",
+			"in": ["./latte_lib.js", "./lib"],
+			"out": "./build/{{version}}/{{name}}.js"
+		},
+		{
+			"command": "mini",
+			"in": ["./build/{{version}}/{{name}}.js"],
+			"out": "./build/{{version}}/{{name}}.min.js"
+		},
+		{
+			"command": "copy",
+			"type": "js",
+			"in": ["./build/{{version}}/{{name}}.js"],
+			"out": ["./build/{{name}}.js"]
+		}
+
+	]
+}

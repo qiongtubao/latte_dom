@@ -1,0 +1,16 @@
+{
+	"name":"latte_dom",
+	"version":"0.0.1",
+	"description":"latte_renderer",
+	"keywords":["latte_renderer"],
+	"author":"qiongtubao",
+	"main":"./lib/index.js",
+	"repository":{
+		"type":"git",
+		"url":"https://github.com/qiongtubao/latte_renderer.git"
+	},
+	"dependencies":{
+
+	}
+	
+}
