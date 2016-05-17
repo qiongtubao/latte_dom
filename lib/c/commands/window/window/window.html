@@ -1,0 +1,14 @@
+<div class="latte_window_window_main" latte-show="show" latte-css="left:{{left}}px;top:{{top}}px;width:{{width}}px;height:{{height}}px;zIndex:{{zIndex}}">
+	<div class="latte_window_window_top">
+		<h3 class="latte_window_window_top_title">{{title}}</h3>
+		<a class="latte_window_window_top_close" latte-click="close">x</a>
+	</div>
+	<div class="latte_window_window_middle">
+		{{innerHTML}}
+	</div>
+	<div class="latte_window_window_bottom">
+		<div latte-image="changeIcon" style="width:10px;height:10px;" class="latte_window_window_bottom_change"></div>
+	</div>
+</div>
+<div class="latte_window_window_mask"  latte-show="show">
+</div>
