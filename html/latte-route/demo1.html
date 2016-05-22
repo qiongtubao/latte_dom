@@ -1,0 +1,38 @@
+<html>
+<head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+          <script src="../latte_dom.js"></script>
+        
+       
+    </head>
+<body>
+	<div latte-controller="box">
+		<div id="latte-route" latte-route="url" >
+		</div>
+		<button latte-click="goA">a</button>
+		<button latte-click="goB">b</button>
+	</div>
+
+</body>
+<script type="text/javascript">
+	var latte_dom = latte.require("latte_dom");
+  	var data = {
+  		url: "a",
+  		goA: function() {
+  			this.set("url", "a");
+  		},
+  		goB: function() {
+  			this.set("url", "b");
+  		},
+      a: {
+        url: "./a.html"
+      },
+      b: {
+        url: "./b.html"
+      }
+  	};
+  	var box = latte_dom.define("box", data);
+</script>
+</html>

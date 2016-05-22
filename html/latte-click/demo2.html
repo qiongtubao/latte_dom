@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+          <script src="../latte_dom.js"></script>
+        
+       
+    </head>
+    <body>
+        <div latte-controller="box">
+            <button latte-click="c.click">click</button>
+            <p>{{c.w}}</p>
+            <p>{{c.h}}</p>
+        </div>
+        <script>
+              
+              var latte_dom = latte.require("latte_dom");
+              var data = {
+              	c: {
+              		w: 100,
+	                h: 100,
+	                click: function() {
+	                  this.set("c.w",parseFloat(this.get("c.w")) + 10);
+	                  this.set("c.h",parseFloat(this.get("c.h")) + 10);
+	                }	
+              	}
+                
+              };
+              var box = latte_dom.define("box", data);
+              
+              
+        </script>
+    </body>
+</html>

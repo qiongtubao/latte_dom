@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+          <script src="../../latte_dom.js"></script>
+        <style >
+         
+        </style>
+    </head>
+    <body>
+        <div latte-controller="box" class="latte">
+            <div latte-dialog="success" latte-dialog-data="success" >
+            </div>
+            <button latte-click="open">open</button>
+        </div>
+
+        <script>
+              
+              var latte_dom = latte.require("latte_dom");
+              var data = {
+                	success: {
+                		text : "操作成功",
+                    icon : "system1.png#ok",
+                		ok: function() {
+                      //一般情况这里的this  是LatteObject.create(data) 但是这里是因为latte-dialog-data数据绑定导致  执行的时候拿到的this是 LatteObject.create(data).get("list"); 是否有隐患暂时不知道
+                			 this.set("show", false);
+                       console.log("???");
+                		}
+                	},
+                  open: function() {
+                      this.get("success").set("show", true);
+                  }
+              };
+              var box = latte_dom.define("box", data);
+              console.log(data);
+              
+        </script>
+    </body>
+</html>

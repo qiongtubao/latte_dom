@@ -1,0 +1,27 @@
+<svg  class="nc-icon outline" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48">
+<g transform="translate(0.5, 0.5)">
+<circle opacity="0.4" fill="none" stroke="#444444" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" cx="24" cy="24" r="22" stroke-linejoin="miter"></circle>
+<path class="nc-circle-03-easy" data-cap="butt" data-color="color-2" fill="none" stroke="#20f3e5" stroke-width="3" stroke-miterlimit="10" d="M24,2c12.2,0,22,9.8,22,22" stroke-linejoin="miter" stroke-linecap="butt" transform="rotate(85.57861631608145 24 24)"></path>
+</g>
+<script transform="translate(0.5, 0.5)">
+	function progressCircle3(e){
+		return.5&gt;e?4*e*e*e:(e-1)*(2*e-2)*(2*e-2)+1
+	}
+	function stepCircleThreeEasy(e){
+		startCircle3||(startCircle3=e);
+		var t=e-startCircle3,n=progressCircle3(t/900),r=Math.min(900*n/2.5,360);900&gt;t||(startCircle3+=900);
+		if(pathCircle3[0]){
+			window.requestAnimationFrame(stepCircleThreeEasy);
+			for(j = 0;  pathCircle3Number &gt; j ; j++) {
+				pathCircle3[j].setAttribute("transform","rotate("+r+" 24 24)")
+			}
+		}
+	}
+	!function(){
+		var e=0;
+		window.requestAnimationFrame||(window.requestAnimationFrame=function(t){var n=(new Date).getTime(),r=Math.max(0,16-(n-e)),i=window.setTimeout(function(){t(n+r)},r);return e=n+r,i})
+	}();
+	var pathCircle3=document.getElementsByClassName("nc-circle-03-easy"),pathCircle3Number = pathCircle3.length,startCircle3=null;
+	window.requestAnimationFrame(stepCircleThreeEasy);
+</script>
+</svg>

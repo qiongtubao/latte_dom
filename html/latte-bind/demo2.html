@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+          <script src="../latte_dom.js"></script>
+        
+       
+    </head>
+    <body>
+        <div latte-controller="box">
+            <input latte-bind="data.x"></input>
+            <p>{{data.x}}</p>
+            <p latte-value="{{data.x}}"></p>
+        </div>
+        <script>
+              
+			var latte_dom = latte.require("latte_dom");
+			var data = {
+				data: {
+
+				}
+			};
+			//在想是否设计成可以自动创建
+			var box = latte_dom.define("box", data);
+              
+              
+        </script>
+    </body>
+</html>

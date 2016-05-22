@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+          <script src="../latte_dom.js"></script>
+        
+       
+    </head>
+    <body>
+        <div latte-controller="box">
+            <input latte-bind="x"></input>
+            <p>{{x}}</p>
+            <p latte-value="{{x}}"></p>
+        </div>
+        <script>
+              
+              var latte_dom = latte.require("latte_dom");
+              var data = {
+
+              };
+              var box = latte_dom.define("box", data);
+              
+              
+        </script>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<html>
+<head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+          <script src="../latte_dom.js"></script>
+        <style>
+        	body {
+        		margin: 0;
+        		padding: 0;
+        	}
+        </style>
+       
+    </head>
+<body>
+	<div latte-controller="box">
+		<div  latte-image="image" style="width:48px; height:48px;"></div>
+   
+		<button latte-click="change1">改变</button>
+		<button latte-click="change2">还原</button>
+	</div>
+
+</body>
+<script type="text/javascript">
+	var latte_dom = latte.require("latte_dom");
+  	var data = {
+  		image: "system1.png#no",
+  		change1: function() {
+        console.log(this);
+  			this.set("image", "system1.png#no");
+  		},
+  		change2: function() {
+        console.log(this);
+  			this.set("image", "system.svg#check");
+  		}
+  	};
+  	var box = latte_dom.define("box", data);
+</script>
+</html>

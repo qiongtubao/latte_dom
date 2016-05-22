@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+         <script src="../latte_dom.js"></script>
+        
+       
+    </head>
+    <body>
+        <div latte-controller="box">
+            <div style="background: #a9ea00;"  latte-css="width:{{w}}px;height:{{h}}px;" latte-click="click"></div>
+            <p>W: <input type="text" latte-duplex="w" ></input> </p>
+            <p>H: <input type="text" latte-duplex="h" ></input> </p>
+        </div>
+        <script>
+              
+              var latte_dom = latte.require("latte_dom");
+              var data = {
+                w: 100,
+                h: 100,
+                click: function() {
+                  this.set("w",parseFloat(this.get("w")) + 10);
+                  this.set("h",parseFloat(this.get("h")) + 10);
+                }
+              };
+              var box = latte_dom.define("box", data);
+              
+              
+        </script>
+    </body>
+</html>

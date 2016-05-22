@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+          <script src="../latte_dom.js"></script>
+        
+       
+    </head>
+    <body>
+        <div latte-controller="box">
+            <div latte-editor="ace" latte-editor-theme="theme" latte-editor-mode="mode">
+            </div>
+        </div>
+        <script>
+              
+              var latte_dom = latte.require("latte_dom");
+              var data = {
+                  text: "hello world",
+                  mode: "javascript",
+                  theme: "textmate"
+              };
+              var box = latte_dom.define("box", data);
+              //mode javascript,html 会启动worker_client加载worker-javascript 等运行器等   来检测错误  请去ace 去单独下载   build/worker-XXX.js  文件 
+              console.log(data);
+              
+        </script>
+    </body>
+</html>

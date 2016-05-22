@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+          	<script src="../latte_dom.js"></script>
+        
+       		<style>
+            .page > ul {
+              width: 193px;
+              left: 0;
+              top: 0;
+              list-style: none;
+            }
+            .page > div {
+
+            }
+            .pageLi {
+              width: 170px;
+              left: 0px;
+              padding: 0px 10px;
+              word-break: break-all;
+              color: #fff;
+              overflow: hidden;
+              line-height: 105px;
+              background: #aacf53;
+              cursor: pointer;
+              border-left: solid 1px #aacf53;
+              border-right: solid 2px #aacf53;
+              border-bottom: solid 1px #aacf53;
+            }
+            .select {
+              background-color: #aadddd;
+            }
+       		</style>
+    </head>
+    <body>
+        <div latte-controller="box">
+            <div latte-page="page" latte-page-data="this" class="page">
+              
+            	<a latte-click="click" latte-class="{{selectClass}}" class="pageLi">
+      					{{title}}
+      				</a>
+
+      				<div latte-route="route" latte-show="show">
+
+      				</div>
+            </div>
+        </div>
+        <script>
+              
+              var latte_dom = latte.require("latte_dom");
+              var LatteObject = latte.require("latte_dom/m/data");
+              var data = LatteObject.create({
+                  select: 0,
+                  selectClass: "select", 
+                  page: [{
+                  	title: "1",
+                  	route: "a",
+                    show: true,
+                  	a: {
+                  		url: "./a.html"
+                  	}
+                  }, {
+                  	title: "2",
+                  	route: "b",
+                  	b: {
+                  		url: "./b.html"
+                  	}
+                  }]
+              });
+
+              var boxs = latte_dom.define("box", data);
+
+              //mode javascript,html 会启动worker_client加载worker-javascript 等运行器等   来检测错误  请去ace 去单独下载   build/worker-XXX.js  文件 
+              console.log(data);
+              
+        </script>
+    </body>
+</html>

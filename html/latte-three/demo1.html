@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+         <script src="../latte_dom.js"></script>
+        <style>
+        	.three {
+    		    width: 210px;
+			    border-bottom: solid 1px #316a91;
+			    margin: 40px auto 0 auto;
+        	}
+        	.three * {
+        		margin: 0;
+        		padding: 0;
+        	}
+        	.three  ul{
+        		list-style: none;
+        	}
+        	.three ul  li {
+    		    background-color: #467ca2;
+			    border: solid 1px #316a91;
+			    border-bottom: 0;
+        	}
+        	.three ul li a{
+        		padding-left: 10px;
+			    color: #fff;
+			    font-size: 12px;
+			    display: block;
+			    font-weight: bold;
+			    height: 36px;
+			    line-height: 36px;
+			    position: relative;
+        	}
+        	.three .ul0 li {
+    		    border-left: 0;
+			    border-right: 0;
+			    background-color: #6196bb;
+			    border-color: #467ca2;
+        	}
+        	.three .ul0 li a {
+        		padding-left: 20px;
+        	}
+        	.three .ul1 li {
+    		    background-color: #467ca2;
+			    border: solid 1px #316a91;
+			    border-bottom: 0;
+        	}
+        	.three .ul1 li a {
+        		padding-left: 20px;
+        	}
+
+
+        </style>
+       
+    </head>
+    <body>
+        <div latte-controller="box">
+            <div latte-three="three" latte-three-data="three" class="three">
+            	<a latte-click="click">{{title}}</a>
+            </div>
+        </div>
+        <script>
+              
+              var latte_dom = latte.require("latte_dom");
+              var data = {
+                three: [{
+                	title: "a",
+                	click: function() {
+                		alert("click a");
+                	}
+                }, {
+                	title: "b",
+                	childs: [{
+                		title: "c",
+                		click: function() {
+                			alert("click c");
+                		}
+                	}]
+                }]
+              };
+              var box = latte_dom.define("box", data);
+              console.log(data);
+              
+        </script>
+    </body>
+</html>

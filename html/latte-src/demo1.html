@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+         <script src="../latte_dom.js"></script>
+        
+       
+    </head>
+    <body>
+        <div latte-controller="box">
+            <img latte-src="./{{i}}.png" style="width:100px;height: 100px;"></img>
+            <button latte-click="like">like</button>
+    	     	<button latte-click="not">not</button>
+        </div>
+        <script>
+              
+              var latte_dom = latte.require("latte_dom");
+              var data = {
+                i: "like",
+                like: function() {
+                	this.set("i", "like");
+                },
+                not: function() {
+                	this.set("i", "not");
+                }
+              };
+              var box = latte_dom.define("box", data);
+              console.log(data);
+              
+        </script>
+    </body>
+</html>

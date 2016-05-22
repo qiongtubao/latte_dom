@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+          <script src="../latte_dom.js"></script>
+        
+       
+    </head>
+    <body>
+        <div latte-controller="box" >
+        	<ul latte-list="list">
+	            <li latte-css="background:{{color}}" >
+	            	<p latte-click="click">{{text}}</p>
+	            </li>
+            </ul>
+            <button latte-click="push">push</button>
+            <button latte-click="set">set</button>
+            <button latte-click="pop">pop</button>
+            <button latte-click="shift">shift</button>
+             <button latte-click="unshift">unshift</button>
+             <button latte-click="splice">splice</button>
+             <button latte-click="change">change</button>
+        </div>
+        <script>
+          	var click = function() {
+          		var index = data.get("list").indexOf(this);
+              	console.log(index);
+            };
+              var latte_dom = latte.require("latte_dom");
+              var Data = latte.require("latte_dom/m/data.js");
+              var data = Data.create({
+                w: 100,
+                h: 100,
+                click: function() {
+                  this.w = parseFloat(this.w) + 10;
+                  this.h = parseFloat(this.h) + 10;
+                },
+                list: [{text: "aaa", color: "#FF66FF", click: click}, {text:"bbb", color: "#FFFF00", click: click},{text:"ccc", color: "#FFCCCC", click: click}],
+                push: function() {
+                	this.get("list").push({
+                		text: "ddd",
+                		color: "#FFCCCC",
+                		click: click
+                	});
+                },
+                set: function() {
+                	var oldValue = this.get("list").get(1);
+                	this.get("list").set(1, {
+                		text: "ddd",
+                		color: "#FFCCCC",
+                		click: click
+                	});
+                	
+                },
+                pop: function() {
+                   this.get("list").pop(); 
+                },
+                shift: function() {
+                  this.get("list").shift();
+                },
+                unshift: function(){
+                  this.get("list").unshift({
+                    text:"111",
+                    color: "#FFFFFF",
+                    click: click
+                  }, {
+                    text: "222",
+                    color: "#DDDDDD",
+                    click: click
+                  });
+                },
+                splice: function() {
+                  this.get("list").splice(2, 1, {
+                    text: "333",
+                    color: "#999999",
+                    click: click
+                  },{
+                    text: "444",
+                    color: "#999999",
+                    click: click
+                  });
+                },
+                change: function() {
+                  this.set("list", [
+                    {text: "111", color: "#FF66FF", click: click}, 
+                    {text:"222", color: "#FFFF00", click: click},
+                    {text:"333", color: "#FFCCCC", click: click}
+                  ]);
+                  console.log(this.get("list"));
+
+                }
+
+              });
+              console.log(data);
+              var box = latte_dom.define("box", data);
+              
+              
+              
+        </script>
+    </body>
+</html>

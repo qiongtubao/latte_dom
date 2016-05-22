@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+          <script src="../latte_dom.js"></script>
+        
+       	<style>
+       		.c {
+       			width: 100px;
+       			height: 100px;
+       		}
+       		.a {
+       			background-color: #ededed;
+       		}
+       		.b {
+       			background-color: #acacac;
+       		}
+       	</style>
+    </head>
+    <body>
+        <div latte-controller="box">
+            <div latte-class="{{className}}" class="c"></div>
+            <button latte-click="a">a</button>
+            <button latte-click="b">b</button>
+        </div>
+        <script>
+              
+              var latte_dom = latte.require("latte_dom");
+              var data = {
+                className: "a",
+                a: function() {
+                	this.set("className", "a");
+                },
+                b: function() {
+                	this.set("className", "b");
+                }
+              };
+              var box = latte_dom.define("box", data);
+              
+              
+        </script>
+    </body>
+</html>

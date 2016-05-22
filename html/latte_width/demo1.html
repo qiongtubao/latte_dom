@@ -1,0 +1,37 @@
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+     <script src="../latte_dom.js"></script>
+    <style>
+      body {
+        background-color: #fff;
+      }
+    </style>
+   
+</head>
+<body>
+    <div latte-controller="box">
+        <div latte-window="window" latte-window-data="this">
+        	<div style="height:400px;width=100%;background-color:#fff">
+
+          	</div>
+        </div>
+         <button latte-click="open"> open</button>
+    </div>
+   
+    
+</body>
+<script>
+          
+      	var latte_dom = latte.require("latte_dom");
+    	var latte_lib = latte.require("latte_lib");
+    	var data = latte_lib.object.create({
+    		a: 1,
+    		b: {
+    			c: 1
+    		}
+    	})
+      	console.log(data.toJSON());
+      
+</script>
