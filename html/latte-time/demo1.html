@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+         <script src="../latte_dom.js"></script>
+	</head>
+	<body>
+		<div latte-controller="box">
+			<div >
+				<p latte-time="oneMin"></p>
+				<p latte-time="twoMin"></p>
+				<p latte-time="oneHour"></p>
+				<p latte-time="oneDay"></p>
+				<p latte-time="oneMonth"></p>
+			</div>
+
+		</div>
+	</body>
+	<script type="text/javascript">
+		
+		var latte_lib = latte.require("latte_lib");
+		var latte_dom = latte.require("latte_dom");
+		/**
+			int -> int
+		*/
+		var time = new Date();
+		var oneMin = new Date();
+		oneMin.setMinutes(oneMin.getMinutes() - 1);
+
+		var twoMin = new Date();
+		twoMin.setMinutes(twoMin.getMinutes() - 2);
+
+		var oneHour = new Date();
+		oneHour.setHours(oneHour.getHours() -1);
+
+		var oneDay = new Date();
+		oneDay.setDate(oneDay.getDate() - 1);
+
+		var oneMonth = new Date();
+		oneMonth.setMonth(oneMonth.getMonth() - 1);
+
+		var a1 = latte_lib.object.create({
+			oneMin: oneMin,
+			twoMin: twoMin,
+			oneHour: oneHour,
+			oneDay: oneDay,
+			oneMonth: oneMonth
+		});
+		latte_dom.define("box", a1);
+		
+	</script>
+</html>

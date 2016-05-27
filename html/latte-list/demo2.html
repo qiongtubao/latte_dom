@@ -1,1 +1,40 @@
-demo2.html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+          <script src="../latte_dom.js"></script>
+        
+       
+    </head>
+    <body>
+        <div latte-controller="box" >
+        	<ul latte-list="list" >
+	            <li  >
+	            	<p  contenteditable="true" latte-click="click">{{text}}</p>
+	            </li>
+            </ul>
+           
+        </div>
+        <script>
+        	var latte_lib = latte.require("latte_lib");
+        	var latte_dom = latte.require("latte_dom");
+            var click = function() {
+                var i = d.get("list").indexOf(this);
+                console.log(i);
+            }
+        	var d = latte_lib.object.create({
+        		list: ["a", "b"].map(function(o){
+                    return {
+                        text: o,
+                        click: click
+                    };
+                })
+        	});
+          	 var box = latte_dom.define("box", d);
+              
+              
+        </script>
+    </body>
+</html>

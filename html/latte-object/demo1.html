@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+         <script src="../latte_dom.js"></script>
+	</head>
+	<body>
+		<div latte-controller="box">
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+		
+		var latte_lib = latte.require("latte_lib");
+		/**
+			int -> int
+		*/
+		var a1 = latte_lib.object.create({
+			a: 1,
+			b: 2
+		});
+		a1.set("a", 2);
+
+		console.log(a1.get("a"), a1.get("b"), a1.toJSON());
+		debugger;
+		/**
+			int -> object
+		*/
+		var a2 = latte_lib.object.create({
+
+		});
+		/**
+			object -> array
+		*/
+
+		/**
+			array ->int
+		*/
+		
+	</script>
+</html>

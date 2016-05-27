@@ -1,0 +1,60 @@
+<html>
+<head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+          <script src="../latte_dom.js"></script>
+        <style>
+        	body {
+        		margin: 0;
+        		padding: 0;
+        	}
+        </style>
+       
+    </head>
+<body>
+	<div latte-controller="box">
+		<div  latte-files="files" style="width:48px; height:48px;"></div>
+   
+		<button latte-click="change1">改变</button>
+		<button latte-click="change2">还原</button>
+    <div id="preview"></div>
+	</div>
+
+</body>
+<script type="text/javascript">
+	var latte_dom = latte.require("latte_dom");
+  	var data = {
+  		files: function(fileList) {
+          for(var i = 0 , len = fileList.length; i < len; i++) {
+              var img = window.webkitURL.createObjectURL(fileList[i]);
+               var filename = fileList[i].name;
+               var filesize = fileList[i].size;
+               var str = "<div><img src='"+img+"'><p>图片名称："+filename+"</p><p>大小："+filesize+"KB</p></div>";
+               document.getElementById("preview").innerHTML +=str;
+               
+               //通过XMLHttpRequest(ajax)上传
+               var xhr = new XMLHttpRequest();
+               xhr.open("post","upload.jsp", true);
+               xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+               //利用FormData动态发送表单数据
+               var fd = new FormData();
+               fd.append("doc", fileList[i]);
+               xhr.send(fd);
+               
+               xhr.onreadystatechange = function(){
+                 if(xhr.readyState==4 && xhr.status==200){
+                   setTimeout(function(){
+                    clearInterval(timer);
+                    document.getElementById("drop_area").innerHTML = "请稍后，文件上传中...";
+                    document.getElementById("program").style.width="0%";
+                   },2000);
+                }
+              }
+          }
+          
+      }
+  	};
+  	var box = latte_dom.define("box", data);
+</script>
+</html>
