@@ -4,10 +4,30 @@
     <title>My App</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="Content-type" name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+        <style type="text/css">
+          body {
+            margin: 0;
+            padding: 0;
+          }
+          div {
+            margin: 0;
+            padding: 0;
+          }
+        </style>
   <body>
     <div latte-controller="demo">
       <div style="width:100%;height:15px;">
-        <div style="float:"></div>
+        <div style="position: relative;display: inline-block;">
+          <div style="float:left;width:100px;">icon</div>
+          <div style="float:left;width:100px;">O</div>
+        </div>
+      </div>
+      <div style="width:100%;height:15px;">
+        <div >
+          <div style="float:left;width:33%;">A</div>
+          <div style="float:left;width:33%;">B</div>
+          <div style="float:left;width:33%;">C</div>
+        </div>
       </div>
       <div id="latte-route" latte-route="url" style="width:100%;">
 
@@ -18,12 +38,68 @@
   <script type="text/javascript">
     var latte_dom = latte.require("latte_dom");
     var latte_lib = latte.require("latte_lib");
+    var listInitData = {"a": "#dd0000", "b":"#00dd00", "c":"#0000dd", "d":"#dddd00", "e": "#dd00dd", "f": "#00dddd", "g":"dddddd"};
+    var lists = [];
+    var click2 = function() {
+      demoData.set("url", "one");
+      demoData.set("one.data.name", this.get("name"));
+    }
+    var click = function() {
+      var a = this.get("name");
+      var l = [];
+      for(var i = 0 ;i < 10; i++) {
+        l.push({
+          name:   a + i,
+          click: click2
+        })
+      }
+      demoData.set("url", "list");
+      demoData.set("list.data.index", 9);
+      demoData.set("list.data.list", l);
+      demoData.set("list.data.type", a);
+    }
+    for(var i in listInitData) {
+      lists.push({
+        name: i,
+        color: listInitData[i],
+        click: click
+      });
+    };
     var demoData = latte_lib.object.create({
         url: "index",
         index: {
           url: "./index.html",
-          data: {}
+          data: {
+              list: lists
+             
+          }
         },
+        list: {
+          url: "./list.html",
+          data: {
+             list: [],
+             index: 0, 
+             getMore: function() {
+                var index = this.get("index");
+                index++;
+                var type = this.get("type");
+                this.get("list").push({
+                  name: type + index,
+                  click: click2
+                });
+                this.set("index", index);
+             }
+          }
+        },
+        one: {
+          url: "./one.html",
+          data: {
+            comeback: function() {
+              console.log("?");
+              demoData.set("url", "list");
+            }
+          }
+        }
     });
     var box = latte_dom.define("demo", demoData);
   </script>
