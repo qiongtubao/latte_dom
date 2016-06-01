@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>JS+CSS美化的漂亮Select列表框</title>
+<style type="text/css">
+body{background:#CFDFEF;font:12px/150% "Lucida Grande", Arial, Verdana, Helvetica, sans-serif;}
+#uboxstyle .select_box{width:100px;height:24px;}
+#macstyle .select_box{width:91px;height:24px;}
+#tm2008style .select_box{width:102px;height:24px;}
+#uboxstyle div.tag_select{display:block;color:#79A2BD;width:80px;height:24px;background:transparent url("./ubox-select.gif") no-repeat 0 0;padding:0 10px;line-height:24px;}
+#uboxstyle div.tag_select_hover{display:block;color:#79A2BD;width:80px;height:24px;background:transparent url("./ubox-select.gif") no-repeat 0 -24px;padding:0 10px;line-height:24px;}
+#uboxstyle div.tag_select_open{display:block;color:#79A2BD;width:80px;height:24px;background:transparent url("./ubox-select.gif") no-repeat 0 -48px;padding:0 10px;line-height:24px;}
+#uboxstyle ul.tag_options{position:absolute;padding:0;margin:0;list-style:none;background:transparent url("./ubox-select.gif") no-repeat right bottom;width:100px;padding:0 0 5px;margin:0;}
+#uboxstyle ul.tag_options li{background:transparent url("./ubox-select.gif") repeat-y -100px 0;display:block;width:80px;padding:0 10px;height:24px;text-decoration:none;line-height:24px;color:#79A2BD;}
+#uboxstyle ul.tag_options li.open_hover{background:transparent url("./ubox-select.gif") no-repeat 0 -72px;color:#fff}
+#uboxstyle ul.tag_options li.open_selected{background:transparent url("./ubox-select.gif") no-repeat 0 -96px;color:#fff}
+#macstyle div.tag_select{display:block;color:#000;width:71px;height:24px;background:transparent url("./mac-select.gif") no-repeat 0 -24px;padding:0 10px;line-height:24px;}
+#macstyle div.tag_select_hover{display:block;color:#000;width:71px;height:24px;background:transparent url("./mac-select.gif") no-repeat 0 0;padding:0 10px;line-height:24px;}
+#macstyle div.tag_select_open{display:block;color:#000;width:71px;height:24px;background:transparent url("./mac-select.gif") no-repeat 0 -48px;padding:0 10px;line-height:24px;}
+#macstyle ul.tag_options{position:absolute;margin:-4px 0 0;list-style:none;background:transparent url("./mac-select.gif") no-repeat left bottom;width:100px;padding:0 0 5px;margin:0;width:71px;}
+#macstyle ul.tag_options li{background:transparent url("./mac-select.gif") repeat-y -91px 0;display:block;width:61px;padding:0 0 0 10px;height:24px;text-decoration:none;line-height:24px;color:#000;}
+#macstyle ul.tag_options li.open_hover{background:transparent url("./mac-select.gif") no-repeat -162px 0;color:#000}
+#macstyle ul.tag_options li.open_selected{background:transparent url("./mac-select.gif") no-repeat -162px -24px;color:#fff}
+#tm2008style div.tag_select{display:block;color:#000;width:82px;height:22px;background:transparent url("./tm2008-select.gif") no-repeat 0 0;padding:0 10px;line-height:22px;}
+#tm2008style div.tag_select_hover{display:block;color:#000;width:82px;height:22px;background:transparent url("./tm2008-select.gif") no-repeat 0 -22px;padding:0 10px;line-height:22px;}
+#tm2008style div.tag_select_open{display:block;color:#000;width:82px;height:22px;background:transparent url("./tm2008-select.gif") no-repeat 0 -44px;padding:0 10px;line-height:22px;}
+#tm2008style ul.tag_options{position:absolute;margin:0;list-style:none;background:transparent url("./tm2008-select.gif") no-repeat left bottom;width:100px;padding:0 0 1px;margin:0;width:80px;}
+#tm2008style ul.tag_options li{background:transparent url("./tm2008-select.gif") repeat-y -102px 0;display:block;width:61px;padding:0 10px;height:22px;text-decoration:none;line-height:22px;color:#000;}
+#tm2008style ul.tag_options li.open_hover{background:transparent url("./tm2008-select.gif") no-repeat 0 -88px;color:#000}
+#tm2008style ul.tag_options li.open_selected{background:transparent url("./tm2008-select.gif") no-repeat 0 -66px;color:#19555F}
+</style>
+<script type="text/javascript">
+var selects = document.getElementsByTagName('select');
+var isIE = (document.all && window.ActiveXObject && !window.opera) ? true : false;
+function $(id) {
+	return document.getElementById(id);
+}
+function stopBubbling (ev) {	
+	ev.stopPropagation();
+}
+function rSelects() {
+	for (i=0;i<selects.length;i++){
+		selects[i].style.display = 'none';
+		select_tag = document.createElement('div');
+			select_tag.id = 'select_' + selects[i].name;
+			select_tag.className = 'select_box';
+		selects[i].parentNode.insertBefore(select_tag,selects[i]);
+		select_info = document.createElement('div');	
+			select_info.id = 'select_info_' + selects[i].name;
+			select_info.className='tag_select';
+			select_info.style.cursor='pointer';
+		select_tag.appendChild(select_info);
+		select_ul = document.createElement('ul');	
+			select_ul.id = 'options_' + selects[i].name;
+			select_ul.className = 'tag_options';
+			select_ul.style.position='absolute';
+			select_ul.style.display='none';
+			select_ul.style.zIndex='999';
+		select_tag.appendChild(select_ul);
+		rOptions(i,selects[i].name);
+		mouseSelects(selects[i].name);
+		if (isIE){
+			selects[i].onclick = new Function("clickLabels3('"+selects[i].name+"');window.event.cancelBubble = true;");
+		}
+		else if(!isIE){
+			selects[i].onclick = new Function("clickLabels3('"+selects[i].name+"')");
+			selects[i].addEventListener("click", stopBubbling, false);
+		}		
+	}
+}
+
+function rOptions(i, name) {
+	var options = selects[i].getElementsByTagName('option');
+	var options_ul = 'options_' + name;
+	for (n=0;n<selects[i].options.length;n++){	
+		option_li = document.createElement('li');
+			option_li.style.cursor='pointer';
+			option_li.className='open';
+		$(options_ul).appendChild(option_li);
+
+		option_text = document.createTextNode(selects[i].options[n].text);
+		option_li.appendChild(option_text);
+
+		option_selected = selects[i].options[n].selected;
+
+		if(option_selected){
+			option_li.className='open_selected';
+			option_li.id='selected_' + name;
+			$('select_info_' + name).appendChild(document.createTextNode(option_li.innerHTML));
+		}
+		
+		option_li.onmouseover = function(){	this.className='open_hover';}
+		option_li.onmouseout = function(){
+			if(this.id=='selected_' + name){
+				this.className='open_selected';
+			}
+			else {
+				this.className='open';
+			}
+		} 
+	
+		option_li.onclick = new Function("clickOptions("+i+","+n+",'"+selects[i].name+"')");
+	}
+}
+
+function mouseSelects(name){
+	var sincn = 'select_info_' + name;
+
+	$(sincn).onmouseover = function(){ if(this.className=='tag_select') this.className='tag_select_hover'; }
+	$(sincn).onmouseout = function(){ if(this.className=='tag_select_hover') this.className='tag_select'; }
+
+	if (isIE){
+		$(sincn).onclick = new Function("clickSelects('"+name+"');window.event.cancelBubble = true;");
+	}
+	else if(!isIE){
+		$(sincn).onclick = new Function("clickSelects('"+name+"');");
+		$('select_info_' +name).addEventListener("click", stopBubbling, false);
+	}
+
+}
+
+function clickSelects(name){
+	var sincn = 'select_info_' + name;
+	var sinul = 'options_' + name;	
+
+	for (i=0;i<selects.length;i++){	
+		if(selects[i].name == name){				
+			if( $(sincn).className =='tag_select_hover'){
+				$(sincn).className ='tag_select_open';
+				$(sinul).style.display = '';
+			}
+			else if( $(sincn).className =='tag_select_open'){
+				$(sincn).className = 'tag_select_hover';
+				$(sinul).style.display = 'none';
+			}
+		}
+		else{
+			$('select_info_' + selects[i].name).className = 'tag_select';
+			$('options_' + selects[i].name).style.display = 'none';
+		}
+	}
+
+}
+
+function clickOptions(i, n, name){		
+	var li = $('options_' + name).getElementsByTagName('li');
+
+	$('selected_' + name).className='open';
+	$('selected_' + name).id='';
+	li[n].id='selected_' + name;
+	li[n].className='open_hover';
+	$('select_' + name).removeChild($('select_info_' + name));
+
+	select_info = document.createElement('div');
+		select_info.id = 'select_info_' + name;
+		select_info.className='tag_select';
+		select_info.style.cursor='pointer';
+	$('options_' + name).parentNode.insertBefore(select_info,$('options_' + name));
+
+	mouseSelects(name);
+
+	$('select_info_' + name).appendChild(document.createTextNode(li[n].innerHTML));
+	$( 'options_' + name ).style.display = 'none' ;
+	$( 'select_info_' + name ).className = 'tag_select';
+	selects[i].options[n].selected = 'selected';
+
+}
+
+window.onload = function(e) {
+	bodyclick = document.getElementsByTagName('body').item(0);
+	rSelects();
+	bodyclick.onclick = function(){
+		for (i=0;i<selects.length;i++){	
+			$('select_info_' + selects[i].name).className = 'tag_select';
+			$('options_' + selects[i].name).style.display = 'none';
+		}
+	}
+}
+</script>
+</head>
+<body>
+<form id="form" name="form" method="post" action="">
+<br /><br />
+<div id="uboxstyle">
+<h3 style="color:#6D93AB;font-size:14px;">U-Box Style</h3>
+	<select name="language" id="language">
+		<option value="English"  selected="selected">English</option>
+		<option value="简体中文" >简体中文</option>
+		<option value="日本語" >日本語</option>
+		<option value="Deutsch" >Deutsch</option>
+		<option value="Espa&ntilde;ol" >Espa&ntilde;ol</option>
+		<option value="Polski" >Polski</option>
+		<option value="Português" >Português</option>
+		<option value="Svenska" >Svenska</option>
+	</select>
+</div>
+<br /><br />
+<h3 style="color:#6D93AB;font-size:14px;">Mac Style</h3>
+<div id="macstyle">
+	<select name="language_mac" id="language_mac">
+		<option value="English"  selected="selected">English</option>
+		<option value="简体中文" >简体中文</option>
+		<option value="日本語" >日本語</option>
+		<option value="Deutsch" >Deutsch</option>
+		<option value="Italiano" >Italiano</option>
+		<option value="Polski" >Polski</option>
+		<option value="Português" >Português</option>
+		<option value="Svenska" >Svenska</option>
+	</select>
+</div>
+<br /><br />
+<h3 style="color:#6D93AB;font-size:14px;">TM2008 Style</h3>
+<div id="tm2008style">
+	<select name="language_tm2008" id="language_tm2008">
+		<option value="English">English</option>
+		<option value="简体中文" >简体中文</option>
+		<option value="日本語" >日本語</option>
+		<option value="Fran&ccedil;ais" >Fran&ccedil;ais</option>
+		<option value="Italiano" >Italiano</option>
+		<option value="Polski" >Polski</option>
+		<option value="Português" >Português</option>
+		<option value="Svenska" >Svenska</option>
+	</select>
+</div>
+</form>
+</body>
+</html>
